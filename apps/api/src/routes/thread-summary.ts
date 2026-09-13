@@ -6,8 +6,13 @@ import {
   recordMeterUsage,
   messageSetSignature,
   type InboxQuota,
+  type Prisma,
 } from "@aziru/db";
-import { isInjectionEnabled, resolveProviderRef } from "../services/provider-thread.js";
+import { resolveProviderRef } from "../services/provider-thread.js";
+import {
+  buildThreadVisibilityWhere,
+  DEFAULT_THREAD_VISIBILITY,
+} from "../services/thread-visibility.js";
 import {
   createAIProvider,
   generateThreadSummary,
@@ -27,6 +32,11 @@ import { createMailProvider } from "@aziru/mail";
 // cached in ThreadSummary. Three surfaces call these routes: the web thread
 // preview, the extension side panel, and the native Gmail/Outlook injection
 // (which resolves by provider thread id instead of our own).
+//
+// The native injection route is additionally gated by the workspace's thread
+// visibility (trash, spam, promotions, blacklist) plus isAutomated: a mail page
+// can open any thread, including ones triage excludes, and those must never get
+// a card. They answer 404, which the content script renders as nothing.
 //
 // Cost shape:
 //   - Single-message and automated threads never call the LLM: the stored snippet
@@ -105,15 +115,18 @@ function hasContent(row: { summary: string | null; bullets: string[]; format: Su
  * Get-or-generate, shared by the id-based and provider-id-based routes.
  *
  * `threadId` is our own EmailThread id; both routes resolve to one before calling
- * here, so authorization stays a single workspace-scoped lookup.
+ * here, so authorization stays a single workspace-scoped lookup. `where` narrows
+ * that lookup further (the injection route's visibility gate); a thread it
+ * excludes is a 404, indistinguishable from one that does not exist.
  */
 async function getOrGenerateSummary(
   workspaceId: string,
   threadId: string,
   force: boolean,
+  where: Prisma.EmailThreadWhereInput = {},
 ): Promise<SummaryOutcome> {
   const thread = await db.emailThread.findFirst({
-    where: { id: threadId, workspaceId },
+    where: { id: threadId, workspaceId, ...where },
     select: {
       id: true,
       subject: true,
@@ -446,9 +459,19 @@ summary.post("/workspaces/:workspaceId/provider-threads/:providerThreadId/summar
   if (!parsed.success) return c.json({ error: "Invalid params" }, 400);
   const { workspaceId, providerThreadId, ref } = parsed.data;
 
-  // Workspace kill-switch for native injection; see isInjectionEnabled for why
-  // it is enforced server-side rather than in the content script.
-  if (!(await isInjectionEnabled(workspaceId, "threadSummary"))) {
+  // One read for both the kill switch and the visibility filters (the same
+  // shape as panel-queue). A missing row means defaults, and injection defaults
+  // to on; see provider-thread.ts for why the switch is enforced server-side.
+  const settings = await db.gmailSyncSettings.findUnique({
+    where: { workspaceId },
+    select: {
+      threadSummaryInjectionEnabled: true,
+      includeSpam: true,
+      includePromotions: true,
+      blacklistedSenderEmails: true,
+    },
+  });
+  if (settings && !settings.threadSummaryInjectionEnabled) {
     return c.json(
       {
         error: "Thread summary injection is disabled for this workspace",
@@ -461,8 +484,13 @@ summary.post("/workspaces/:workspaceId/provider-threads/:providerThreadId/summar
   const threadId = await resolveProviderRef(workspaceId, ref, providerThreadId);
   if (!threadId) return c.json({ error: "Thread not found" }, 404);
 
+  // Threads triage excludes never get a card, even though sync persists them
+  // (flags only) and the resolver above finds them.
   const force = c.req.header("X-Force-Regenerate") === "1";
-  const outcome = await getOrGenerateSummary(workspaceId, threadId, force);
+  const outcome = await getOrGenerateSummary(workspaceId, threadId, force, {
+    ...buildThreadVisibilityWhere(workspaceId, settings ?? DEFAULT_THREAD_VISIBILITY),
+    isAutomated: false,
+  });
   return c.json(outcome.body, outcome.status);
 });
 

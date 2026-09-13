@@ -509,9 +509,95 @@ describe("POST /workspaces/:workspaceId/provider-threads/:providerThreadId/summa
   it("leaves the id-addressed route (web preview, side panel) ungated", async () => {
     vi.mocked(db.gmailSyncSettings.findUnique).mockResolvedValue({
       threadSummaryInjectionEnabled: false,
+      includeSpam: false,
+      includePromotions: false,
+      blacklistedSenderEmails: ["noreply@spam.example"],
     } as never);
     const res = await post(`/workspaces/${WS_ID}/email-threads/${THREAD_ID}/summary`);
     expect(res.status).toBe(201);
+    // Neither the kill switch nor the visibility gate applies to Aziru's own surfaces.
+    expect(db.emailThread.findFirst).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { id: THREAD_ID, workspaceId: WS_ID } }),
+    );
+  });
+
+  // ── Visibility gate ─────────────────────────────────────────────────────────
+  // A mail page can open any thread, including ones triage excludes. Sync persists
+  // those with flags only, so the resolver finds them; the summary lookup must
+  // filter them out, or the card would surface content Aziru itself hides.
+
+  it("404s without generating for a thread the visibility settings hide", async () => {
+    vi.mocked(db.gmailSyncSettings.findUnique).mockResolvedValue({
+      threadSummaryInjectionEnabled: true,
+      includeSpam: false,
+      includePromotions: false,
+      blacklistedSenderEmails: ["noreply@spam.example"],
+    } as never);
+    vi.mocked(db.emailThread.findFirst)
+      .mockResolvedValueOnce({ id: THREAD_ID } as never)
+      // The gated lookup misses: the thread is spam/promo/trash/blacklisted/automated.
+      .mockResolvedValueOnce(null as never);
+    const res = await post(`/workspaces/${WS_ID}/provider-threads/${PROVIDER_THREAD_ID}/summary`);
+    expect(res.status).toBe(404);
+    expect(db.emailThread.findFirst).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({
+        where: {
+          id: THREAD_ID,
+          workspaceId: WS_ID,
+          gmailIsTrash: false,
+          gmailIsSpam: false,
+          gmailIsPromotions: false,
+          isAutomated: false,
+          NOT: { messages: { some: { senderEmail: { in: ["noreply@spam.example"] } } } },
+        },
+      }),
+    );
+    expect(mockGenerateThreadSummary).not.toHaveBeenCalled();
+    expect(db.threadSummary.upsert).not.toHaveBeenCalled();
+    expect(mockRecordMeterUsage).not.toHaveBeenCalled();
+  });
+
+  it("honours the spam and promotions opt-ins in the gate", async () => {
+    vi.mocked(db.gmailSyncSettings.findUnique).mockResolvedValue({
+      threadSummaryInjectionEnabled: true,
+      includeSpam: true,
+      includePromotions: true,
+      blacklistedSenderEmails: [],
+    } as never);
+    vi.mocked(db.emailThread.findFirst)
+      .mockResolvedValueOnce({ id: THREAD_ID } as never)
+      .mockResolvedValueOnce(multiMessageThread() as never);
+    const res = await post(`/workspaces/${WS_ID}/provider-threads/${PROVIDER_THREAD_ID}/summary`);
+    expect(res.status).toBe(201);
+    expect(db.emailThread.findFirst).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({
+        where: { id: THREAD_ID, workspaceId: WS_ID, gmailIsTrash: false, isAutomated: false },
+      }),
+    );
+  });
+
+  it("falls back to the default visibility when the settings row is missing", async () => {
+    vi.mocked(db.gmailSyncSettings.findUnique).mockResolvedValue(null as never);
+    vi.mocked(db.emailThread.findFirst)
+      .mockResolvedValueOnce({ id: THREAD_ID } as never)
+      .mockResolvedValueOnce(multiMessageThread() as never);
+    const res = await post(`/workspaces/${WS_ID}/provider-threads/${PROVIDER_THREAD_ID}/summary`);
+    expect(res.status).toBe(201);
+    expect(db.emailThread.findFirst).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({
+        where: {
+          id: THREAD_ID,
+          workspaceId: WS_ID,
+          gmailIsTrash: false,
+          gmailIsSpam: false,
+          gmailIsPromotions: false,
+          isAutomated: false,
+        },
+      }),
+    );
   });
 
   it("passes a Graph-form id (and Gmail hex ids) through unchanged", async () => {
