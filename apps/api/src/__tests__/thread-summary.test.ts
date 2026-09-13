@@ -221,16 +221,34 @@ describe("POST /workspaces/:workspaceId/email-threads/:threadId/summary", () => 
 
   // ── Snippet-only gate ───────────────────────────────────────────────────────
 
-  it("returns the stored snippet for a single-message thread without calling the LLM", async () => {
+  // A single-message thread is summarized like any other (client requirement);
+  // only automated threads and threads with no stored messages short-circuit.
+  it("generates and meters a summary for a single-message thread", async () => {
     vi.mocked(db.emailThread.findFirst).mockResolvedValue({
       id: THREAD_ID,
       subject: "Kickoff",
       isAutomated: false,
+      providerThreadId: PROVIDER_THREAD_ID,
       messages: [messageAt("m1", 9)],
     } as never);
     const res = await post(`/workspaces/${WS_ID}/email-threads/${THREAD_ID}/summary`);
+    expect(res.status).toBe(201);
+    expect(mockGenerateThreadSummary).toHaveBeenCalledTimes(1);
+    expect(mockGenerateThreadSummary.mock.calls[0]![1]).toHaveLength(1);
+    expect(mockRecordMeterUsage).toHaveBeenCalledTimes(1);
+  });
+
+  it("returns an empty snippet for a thread with no stored messages without calling the LLM", async () => {
+    vi.mocked(db.emailThread.findFirst).mockResolvedValue({
+      id: THREAD_ID,
+      subject: "Kickoff",
+      isAutomated: false,
+      providerThreadId: PROVIDER_THREAD_ID,
+      messages: [],
+    } as never);
+    const res = await post(`/workspaces/${WS_ID}/email-threads/${THREAD_ID}/summary`);
     expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({ kind: "snippet", snippet: "snippet for m1" });
+    expect(await res.json()).toEqual({ kind: "snippet", snippet: "" });
     expect(mockGenerateThreadSummary).not.toHaveBeenCalled();
     expect(db.threadSummary.upsert).not.toHaveBeenCalled();
     expect(mockRecordMeterUsage).not.toHaveBeenCalled();

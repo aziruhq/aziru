@@ -290,8 +290,8 @@ msgstr "{providerName} Входящие"
 
 #. placeholder {0}: draftQuota.limit
 #. placeholder {0}: quota.limit
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:473
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:488
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:469
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:483
 #: ../panel/src/DraftSection.tsx:237
 #, fuzzy
 msgid "{quotaRemaining} of {0} remaining · resets {quotaResetDate}"
@@ -1497,10 +1497,10 @@ msgstr "Третья партия золота Вавилона задержив
 
 #: ../../apps/extension/src/panel/SettingsOverlay.tsx:106
 #: ../../apps/extension/src/panel/TaxonomyEditorOverlay.tsx:71
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:359
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:355
 #: ../../apps/mobile/src/components/taxonomy/TemplatePickerSheet.tsx:69
 #: ../../apps/site/src/components/pricing/PricingContent.tsx:25
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:379
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:374
 #: ../ui/src/emails/ThreadPreview.tsx:123
 #: ../ui/src/plan-setup/PlanSetupDialog.tsx:502
 #: ../ui/src/plan-setup/PlanSetupDialog.tsx:522
@@ -1516,8 +1516,8 @@ msgstr "Назад в Gmail"
 #~ msgid "Back to inbox"
 #~ msgstr "Вернуться к входящим"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:355
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:374
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:351
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:369
 #: ../ui/src/emails/ThreadPreview.tsx:118
 #, fuzzy
 msgid "Back to list"
@@ -1997,8 +1997,8 @@ msgstr "Закрыть"
 msgid "Close panel"
 msgstr "Закрыть панель"
 
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:422
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:426
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:417
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:421
 #: ../ui/src/emails/ThreadPreview.tsx:149
 #: ../ui/src/emails/ThreadPreview.tsx:153
 #, fuzzy
@@ -3128,8 +3128,8 @@ msgstr "Не удалось создать черновик · нажмите, �
 msgid "Draft generation failed."
 msgstr "Не удалось сгенерировать черновик."
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:488
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:504
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:484
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:499
 #, fuzzy
 msgid "Draft generation failed. Try again."
 msgstr "Не удалось сгенерировать черновик. Повторите попытку."
@@ -3919,9 +3919,9 @@ msgstr "Создать новый черновик. Списывается с м
 #~ msgid "Generate a plan from your inbox"
 #~ msgstr "Сгенерировать план из почты"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:467
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:463
 #: ../../apps/mobile/app/(app)/thread/[threadId].tsx:146
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:363
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:358
 #: ../ui/src/emails/ThreadPreview.tsx:276
 #, fuzzy
 msgid "Generate draft reply"
@@ -4985,11 +4985,11 @@ msgstr "Рукописи и рецензирование"
 msgid "Mark as done"
 msgstr "Пометить как выполненное"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:365
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:361
 #: ../../apps/mobile/app/(app)/thread/[threadId].tsx:244
 #: ../../apps/mobile/src/components/ThreadRow.tsx:58
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:401
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:407
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:396
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:402
 #: ../ui/src/emails/ThreadPreview.tsx:128
 #: ../ui/src/emails/ThreadPreview.tsx:132
 #: ../ui/src/emails/ThreadRow.tsx:160
@@ -5357,8 +5357,8 @@ msgstr "Пока нет комментариев. Начните обсужде�
 msgid "No drafts remaining"
 msgstr "Черновиков не осталось"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:472
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:487
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:468
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:482
 #: ../panel/src/DraftSection.tsx:235
 #: ../ui/src/emails/SuggestedDraftCard.tsx:134
 #, fuzzy
@@ -5370,7 +5370,7 @@ msgstr "Черновиков не осталось · обновится {quotaR
 msgid "No drafts remaining · resets {resetDate}"
 msgstr "Черновиков не осталось · обновится {resetDate}"
 
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:476
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:471
 #: ../ui/src/emails/SuggestedDraftCard.tsx:113
 #, fuzzy
 msgid "No drafts remaining this month"
@@ -5679,14 +5679,14 @@ msgstr "Открыть беседу: {subject}"
 msgid "Open in Aziru"
 msgstr "Открыть в Aziru"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:396
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:392
 #: ../../apps/mobile/src/components/DraftSheet.tsx:97
 #: ../ui/src/emails/providerLabels.ts:11
 #, fuzzy
 msgid "Open in Gmail"
 msgstr "Открыть в Gmail"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:394
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:390
 #: ../ui/src/emails/providerLabels.ts:11
 msgid "Open in Outlook"
 msgstr "Открыть в Outlook"
@@ -6507,11 +6507,11 @@ msgstr "Удалить {0}"
 msgid "Remove {email} from blacklist"
 msgstr "Удалить {email} из черного списка"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:365
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:361
 #: ../../apps/mobile/app/(app)/thread/[threadId].tsx:243
 #: ../../apps/mobile/src/components/ThreadRow.tsx:57
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:401
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:407
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:396
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:402
 #: ../ui/src/emails/ThreadPreview.tsx:128
 #: ../ui/src/emails/ThreadPreview.tsx:132
 #: ../ui/src/emails/ThreadRow.tsx:159
@@ -6699,9 +6699,9 @@ msgid "Resources"
 msgstr "Ресурсы"
 
 #: ../../apps/extension/src/App.tsx:144
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:490
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:486
 #: ../../apps/mobile/app/(app)/(tabs)/plan/index.tsx:345
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:510
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:505
 #: ../panel/src/DraftSection.tsx:259
 #: ../ui/src/emails/ThreadCommentsCard.tsx:169
 #: ../ui/src/emails/ThreadSummaryCard.tsx:60
@@ -7051,7 +7051,7 @@ msgstr "Установить новый пароль"
 #~ msgstr "Настройте как минимум 3 папки, чтобы мы могли начать сортировку."
 
 #: ../../apps/extension/src/panel/StatusSlot.tsx:59
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:438
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:434
 #: ../ui/src/plan-setup/PlanSetupDialog.tsx:384
 #, fuzzy
 msgid "Set up folders"
@@ -7982,7 +7982,7 @@ msgstr "Это действие удаляет соединение с Gmail, у
 msgid "This thread has reached its comment limit."
 msgstr "Эта ветка достигла лимита комментариев."
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:443
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:439
 msgid "This thread hasn't been sorted yet."
 msgstr "Этот тред еще не отсортирован."
 
@@ -7990,7 +7990,7 @@ msgstr "Этот тред еще не отсортирован."
 #~ msgid "This thread hasn't been sorted yet. Create a sorting plan so Aziru knows where to file it."
 #~ msgstr "Эта ветка еще не отсортирована. Создайте план сортировки, чтобы Aziru знала, куда ее распределить."
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:432
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:428
 msgid "This thread hasn't been sorted yet. Set up your folders so Aziru knows where to file it."
 msgstr "Этот поток ещё не отсортирован. Настройте папки, чтобы Aziru знал, куда его отправить."
 
@@ -8863,9 +8863,9 @@ msgstr "Записывать отсортированные папки как к
 msgid "Writeback is on. Your folders are being mirrored into your mailbox."
 msgstr "Обратная запись включена. Ваши папки дублируются в почтовом ящике."
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:482
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:478
 #: ../../apps/mobile/app/(app)/thread/[threadId].tsx:168
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:498
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:493
 #: ../panel/src/DraftSection.tsx:249
 #: ../ui/src/emails/ThreadPreview.tsx:283
 #, fuzzy

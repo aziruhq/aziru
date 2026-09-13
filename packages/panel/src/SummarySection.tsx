@@ -77,10 +77,8 @@ export function SummarySection({
   useEffect(() => {
     clearPoll();
     tokenRef.current++;
-    if (thread.messageCount <= 1) {
-      setState({ kind: "snippet", text: thread.messages.at(-1)?.snippet ?? "" });
-      return;
-    }
+    // Every thread is summarized, single-message ones included; the server
+    // decides when a snippet is enough (automated or empty threads).
     load(thread.id);
     return () => {
       clearPoll();

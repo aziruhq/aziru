@@ -189,18 +189,13 @@ export function ThreadPreview({
     setDraft(null);
     clearPoll();
     clearSummaryPoll();
-    // Retire any summary still in flight for the thread we just left, including
-    // on the snippet path below (which sets state without issuing a request).
+    // Retire any summary still in flight for the thread we just left.
     summaryTokenRef.current++;
 
     // The summary runs in parallel with the message load and never blocks it.
-    // A single-message thread is short-circuited here rather than server-side so
-    // it costs no roundtrip at all: thread.snippet is already in the list data.
-    if (thread.messageCount <= 1) {
-      setSummaryState({ kind: "snippet", text: thread.snippet ?? "" });
-    } else {
-      loadSummary(thread.id);
-    }
+    // Every thread is summarized, single-message ones included; the server
+    // decides when a snippet is enough (automated or empty threads).
+    loadSummary(thread.id);
 
     // Map the API's inline-image descriptors for one message to renderable <img>
     // entries (same-origin proxy URLs). Undefined when there are none.

@@ -567,7 +567,7 @@ export type ThreadSummary = {
 
 /**
  * "snippet" is not a degraded summary — it is the deliberate zero-cost answer for
- * single-message and automated threads, where the stored snippet already says
+ * empty and automated threads, where the stored snippet already says
  * everything a TL;DR would.
  */
 export type ThreadSummaryResult =

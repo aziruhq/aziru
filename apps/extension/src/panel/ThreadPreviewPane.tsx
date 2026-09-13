@@ -198,17 +198,13 @@ export function ThreadPreviewPane({
     setDraft(null);
     clearPoll();
     clearSummaryPoll();
-    // Retire any summary still in flight for the thread we just left, including
-    // on the snippet path below (which sets state without issuing a request).
+    // Retire any summary still in flight for the thread we just left.
     summaryTokenRef.current++;
 
-    // The summary runs in parallel with the message load and never blocks it. A
-    // single-message thread short-circuits locally: thread.snippet is already here.
-    if (thread.messageCount <= 1) {
-      setSummaryState({ kind: "snippet", text: thread.snippet ?? "" });
-    } else {
-      loadSummary(thread.id);
-    }
+    // The summary runs in parallel with the message load and never blocks it.
+    // Every thread is summarized, single-message ones included; the server
+    // decides when a snippet is enough (automated or empty threads).
+    loadSummary(thread.id);
 
     // Fetch each CID inline image as a blob and turn it into an object URL (the
     // Bearer transport can't authenticate a plain <img src>). Merges the urls in

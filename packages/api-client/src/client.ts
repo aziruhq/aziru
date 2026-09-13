@@ -815,7 +815,7 @@ export function makeApiClient(transport: ApiTransport) {
 
     // Get-or-generate the thread's AI TL;DR. Cheap and idempotent: the server
     // serves a cached summary when the message set and locale are unchanged, and
-    // returns {kind:"snippet"} for single-message/automated threads without ever
+    // returns {kind:"snippet"} for empty/automated threads without ever
     // calling a model. force=true bypasses the cache and counts against quota.
     threadSummary: (workspaceId: string, threadId: string, opts: { force?: boolean } = {}) =>
       requestThreadSummary(

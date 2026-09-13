@@ -286,8 +286,8 @@ msgstr "{providerName} 收件箱"
 
 #. placeholder {0}: draftQuota.limit
 #. placeholder {0}: quota.limit
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:473
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:488
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:469
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:483
 #: ../panel/src/DraftSection.tsx:237
 #, fuzzy
 msgid "{quotaRemaining} of {0} remaining · resets {quotaResetDate}"
@@ -1485,10 +1485,10 @@ msgstr "巴比伦的第三批黄金货物已延期，此前已派出两名信使
 
 #: ../../apps/extension/src/panel/SettingsOverlay.tsx:106
 #: ../../apps/extension/src/panel/TaxonomyEditorOverlay.tsx:71
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:359
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:355
 #: ../../apps/mobile/src/components/taxonomy/TemplatePickerSheet.tsx:69
 #: ../../apps/site/src/components/pricing/PricingContent.tsx:25
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:379
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:374
 #: ../ui/src/emails/ThreadPreview.tsx:123
 #: ../ui/src/plan-setup/PlanSetupDialog.tsx:502
 #: ../ui/src/plan-setup/PlanSetupDialog.tsx:522
@@ -1504,8 +1504,8 @@ msgstr "返回 Gmail"
 #~ msgid "Back to inbox"
 #~ msgstr "返回收件箱"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:355
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:374
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:351
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:369
 #: ../ui/src/emails/ThreadPreview.tsx:118
 #, fuzzy
 msgid "Back to list"
@@ -1981,8 +1981,8 @@ msgstr "关闭"
 msgid "Close panel"
 msgstr "关闭面板"
 
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:422
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:426
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:417
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:421
 #: ../ui/src/emails/ThreadPreview.tsx:149
 #: ../ui/src/emails/ThreadPreview.tsx:153
 #, fuzzy
@@ -3098,8 +3098,8 @@ msgstr "草稿失败 · 轻触重试"
 msgid "Draft generation failed."
 msgstr "草稿生成失败。"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:488
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:504
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:484
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:499
 #, fuzzy
 msgid "Draft generation failed. Try again."
 msgstr "草稿生成失败。请重试。"
@@ -3874,9 +3874,9 @@ msgstr "生成新草稿。占用一次月用量。"
 #~ msgid "Generate a plan from your inbox"
 #~ msgstr "根据收件箱生成方案"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:467
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:463
 #: ../../apps/mobile/app/(app)/thread/[threadId].tsx:146
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:363
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:358
 #: ../ui/src/emails/ThreadPreview.tsx:276
 #, fuzzy
 msgid "Generate draft reply"
@@ -4929,11 +4929,11 @@ msgstr "稿件与同行评审"
 msgid "Mark as done"
 msgstr "标记为完成"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:365
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:361
 #: ../../apps/mobile/app/(app)/thread/[threadId].tsx:244
 #: ../../apps/mobile/src/components/ThreadRow.tsx:58
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:401
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:407
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:396
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:402
 #: ../ui/src/emails/ThreadPreview.tsx:128
 #: ../ui/src/emails/ThreadPreview.tsx:132
 #: ../ui/src/emails/ThreadRow.tsx:160
@@ -5295,8 +5295,8 @@ msgstr "暂无评论。开始讨论吧。"
 msgid "No drafts remaining"
 msgstr "没有剩余草稿"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:472
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:487
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:468
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:482
 #: ../panel/src/DraftSection.tsx:235
 #: ../ui/src/emails/SuggestedDraftCard.tsx:134
 #, fuzzy
@@ -5307,7 +5307,7 @@ msgstr "无剩余草稿 · 于 {quotaResetDate} 重置"
 msgid "No drafts remaining · resets {resetDate}"
 msgstr "没有剩余草稿 · {resetDate} 重置"
 
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:476
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:471
 #: ../ui/src/emails/SuggestedDraftCard.tsx:113
 #, fuzzy
 msgid "No drafts remaining this month"
@@ -5614,14 +5614,14 @@ msgstr "打开会话：{subject}"
 msgid "Open in Aziru"
 msgstr "在 Aziru 中打开"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:396
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:392
 #: ../../apps/mobile/src/components/DraftSheet.tsx:97
 #: ../ui/src/emails/providerLabels.ts:11
 #, fuzzy
 msgid "Open in Gmail"
 msgstr "在 Gmail 中打开"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:394
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:390
 #: ../ui/src/emails/providerLabels.ts:11
 msgid "Open in Outlook"
 msgstr "在 Outlook 中打开"
@@ -6437,11 +6437,11 @@ msgstr "移除 {0}"
 msgid "Remove {email} from blacklist"
 msgstr "从黑名单中移除 {email}"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:365
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:361
 #: ../../apps/mobile/app/(app)/thread/[threadId].tsx:243
 #: ../../apps/mobile/src/components/ThreadRow.tsx:57
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:401
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:407
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:396
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:402
 #: ../ui/src/emails/ThreadPreview.tsx:128
 #: ../ui/src/emails/ThreadPreview.tsx:132
 #: ../ui/src/emails/ThreadRow.tsx:159
@@ -6626,9 +6626,9 @@ msgid "Resources"
 msgstr "资源"
 
 #: ../../apps/extension/src/App.tsx:144
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:490
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:486
 #: ../../apps/mobile/app/(app)/(tabs)/plan/index.tsx:345
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:510
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:505
 #: ../panel/src/DraftSection.tsx:259
 #: ../ui/src/emails/ThreadCommentsCard.tsx:169
 #: ../ui/src/emails/ThreadSummaryCard.tsx:60
@@ -6974,7 +6974,7 @@ msgstr "设置新密码"
 #~ msgstr "设置至少 3 个文件夹，以便我们开始分类。"
 
 #: ../../apps/extension/src/panel/StatusSlot.tsx:59
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:438
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:434
 #: ../ui/src/plan-setup/PlanSetupDialog.tsx:384
 #, fuzzy
 msgid "Set up folders"
@@ -7888,7 +7888,7 @@ msgstr "这将移除 Gmail 连接、删除所有已同步的电子邮件，并�
 msgid "This thread has reached its comment limit."
 msgstr "此会话已达到评论上限。"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:443
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:439
 #, fuzzy
 msgid "This thread hasn't been sorted yet."
 msgstr "此会话尚未分类。"
@@ -7898,7 +7898,7 @@ msgstr "此会话尚未分类。"
 #~ msgid "This thread hasn't been sorted yet. Create a sorting plan so Aziru knows where to file it."
 #~ msgstr "此会话尚未分类。制定分类计划，以便 Aziru 知道如何归档。"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:432
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:428
 #, fuzzy
 msgid "This thread hasn't been sorted yet. Set up your folders so Aziru knows where to file it."
 msgstr "此会话尚未分类。请设置您的文件夹，以便Aziru知道如何归档。"
@@ -8754,9 +8754,9 @@ msgstr "将排序文件夹回写为 Outlook 类别"
 msgid "Writeback is on. Your folders are being mirrored into your mailbox."
 msgstr "回写已开启。您的文件夹正同步到邮箱。"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:482
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:478
 #: ../../apps/mobile/app/(app)/thread/[threadId].tsx:168
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:498
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:493
 #: ../panel/src/DraftSection.tsx:249
 #: ../ui/src/emails/ThreadPreview.tsx:283
 #, fuzzy

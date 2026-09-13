@@ -3,7 +3,7 @@ import { getDraftQuotaWindowStart, getDraftQuotaResetsAt } from "./draft-quota.j
 // Thread-summary limits per plan (AI TL;DRs generated per calendar month, pooled
 // per inbox like every other meter). Mirrors THREAD_SORT_LIMITS: every thread a
 // plan can sort is a thread it can summarize once. Real spend sits far below the
-// cap because single-message and automated threads render the stored snippet at
+// cap because empty and automated threads render the stored snippet at
 // zero LLM cost, and a cached summary is re-served without regenerating.
 // Keep in sync with the plan highlights in packages/shared/src/plans.ts.
 export const THREAD_SUMMARY_LIMITS: Record<string, number> = {

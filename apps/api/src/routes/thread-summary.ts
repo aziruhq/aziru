@@ -39,9 +39,10 @@ import { createMailProvider } from "@aziru/mail";
 // a card. They answer 404, which the content script renders as nothing.
 //
 // Cost shape:
-//   - Single-message and automated threads never call the LLM: the stored snippet
-//     already says everything a two-sentence TL;DR would, so they return
-//     {kind:"snippet"} with no row and no meter.
+//   - Empty and automated threads never call the LLM: an automated/bulk thread
+//     already reads as its own summary, and a thread sync stored with no messages
+//     has nothing to summarize, so they return {kind:"snippet"} with no row and
+//     no meter. Single-message threads ARE summarized (client requirement).
 //   - A cache hit (signature + locale unchanged) is a plain read.
 //   - Only a committed generation records a THREAD_SUMMARY meter unit. FAILED rows
 //     never burn quota, so retrying a server-side failure is free.
@@ -150,10 +151,11 @@ async function getOrGenerateSummary(
   if (!thread) return { status: 404, body: { error: "Thread not found" } };
 
   // ── Snippet-only gate ───────────────────────────────────────────────────────
-  // Checked before anything else: a one-message thread or an automated/bulk
-  // thread already reads as its own summary, so there is nothing worth paying a
-  // model to compress. No row, no LLM call, no meter.
-  if (thread.messages.length <= 1 || thread.isAutomated) {
+  // Checked before anything else: an automated/bulk thread already reads as its
+  // own summary, and a thread with no stored messages (excluded at sync, flags
+  // only) has nothing to summarize. No row, no LLM call, no meter. Single-message
+  // threads deliberately fall through: a summary of one email is still wanted.
+  if (thread.messages.length === 0 || thread.isAutomated) {
     const snippet = thread.messages[thread.messages.length - 1]?.snippet ?? "";
     return { status: 200, body: { kind: "snippet", snippet } };
   }

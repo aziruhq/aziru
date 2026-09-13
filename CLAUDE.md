@@ -40,7 +40,7 @@ A key use case is bulk triage of an existing inbox: users may want to sort and c
 - Keep mock sorting available for deterministic testing.
 - Support local Ollama for dev and frontier LLMs for production through provider abstraction.
 - Tune and commit routing/AI constants for the production model configuration (frontier Gemini). Self-hosted deployments on other models set their own constants; do not tune shipped defaults against the offline CI model.
-- **Thread summaries** are generated lazily on thread open, cached in `ThreadSummary`, and metered as `THREAD_SUMMARY`. Two invariants are non-obvious and load-bearing: single-message and automated threads return the stored snippet with no LLM call, no row, and no meter; and the summary text is derived email content, so it is never logged (not even a preview on a parse failure, unlike the draft module). A FAILED row never records a meter unit, which is what makes retry free.
+- **Thread summaries** are generated lazily on thread open, cached in `ThreadSummary`, and metered as `THREAD_SUMMARY`. Two invariants are non-obvious and load-bearing: automated threads and threads with no stored messages return the stored snippet with no LLM call, no row, and no meter (single-message threads ARE summarized, a client requirement); and the summary text is derived email content, so it is never logged (not even a preview on a parse failure, unlike the draft module). A FAILED row never records a meter unit, which is what makes retry free.
 
 ## Safety & Privacy
 

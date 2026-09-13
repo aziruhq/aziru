@@ -290,8 +290,8 @@ msgstr "{providerName} 받은 편지함"
 
 #. placeholder {0}: draftQuota.limit
 #. placeholder {0}: quota.limit
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:473
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:488
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:469
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:483
 #: ../panel/src/DraftSection.tsx:237
 #, fuzzy
 msgid "{quotaRemaining} of {0} remaining · resets {quotaResetDate}"
@@ -1497,10 +1497,10 @@ msgstr "바빌론의 세 번째 금 수송품이 두 전령이 다녀갔음에�
 
 #: ../../apps/extension/src/panel/SettingsOverlay.tsx:106
 #: ../../apps/extension/src/panel/TaxonomyEditorOverlay.tsx:71
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:359
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:355
 #: ../../apps/mobile/src/components/taxonomy/TemplatePickerSheet.tsx:69
 #: ../../apps/site/src/components/pricing/PricingContent.tsx:25
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:379
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:374
 #: ../ui/src/emails/ThreadPreview.tsx:123
 #: ../ui/src/plan-setup/PlanSetupDialog.tsx:502
 #: ../ui/src/plan-setup/PlanSetupDialog.tsx:522
@@ -1516,8 +1516,8 @@ msgstr "Gmail로 돌아가기"
 #~ msgid "Back to inbox"
 #~ msgstr "받은 편지함으로"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:355
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:374
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:351
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:369
 #: ../ui/src/emails/ThreadPreview.tsx:118
 #, fuzzy
 msgid "Back to list"
@@ -1997,8 +1997,8 @@ msgstr "닫기"
 msgid "Close panel"
 msgstr "패널 닫기"
 
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:422
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:426
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:417
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:421
 #: ../ui/src/emails/ThreadPreview.tsx:149
 #: ../ui/src/emails/ThreadPreview.tsx:153
 #, fuzzy
@@ -3128,8 +3128,8 @@ msgstr "초안 실패 · 탭하여 다시 시도"
 msgid "Draft generation failed."
 msgstr "초안 생성 실패."
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:488
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:504
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:484
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:499
 #, fuzzy
 msgid "Draft generation failed. Try again."
 msgstr "초안 생성에 실패했습니다. 다시 시도해 주세요."
@@ -3919,9 +3919,9 @@ msgstr "새 초안 생성. 월간 할당량 1회가 소진됩니다."
 #~ msgid "Generate a plan from your inbox"
 #~ msgstr "받은 편지함에서 계획 생성"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:467
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:463
 #: ../../apps/mobile/app/(app)/thread/[threadId].tsx:146
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:363
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:358
 #: ../ui/src/emails/ThreadPreview.tsx:276
 #, fuzzy
 msgid "Generate draft reply"
@@ -4985,11 +4985,11 @@ msgstr "원고 및 피어 리뷰"
 msgid "Mark as done"
 msgstr "완료로 표시"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:365
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:361
 #: ../../apps/mobile/app/(app)/thread/[threadId].tsx:244
 #: ../../apps/mobile/src/components/ThreadRow.tsx:58
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:401
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:407
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:396
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:402
 #: ../ui/src/emails/ThreadPreview.tsx:128
 #: ../ui/src/emails/ThreadPreview.tsx:132
 #: ../ui/src/emails/ThreadRow.tsx:160
@@ -5357,8 +5357,8 @@ msgstr "아직 댓글이 없습니다. 대화를 시작해 보세요."
 msgid "No drafts remaining"
 msgstr "남은 초안 없음"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:472
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:487
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:468
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:482
 #: ../panel/src/DraftSection.tsx:235
 #: ../ui/src/emails/SuggestedDraftCard.tsx:134
 #, fuzzy
@@ -5370,7 +5370,7 @@ msgstr "남은 초안 없음 · {quotaResetDate}에 재설정"
 msgid "No drafts remaining · resets {resetDate}"
 msgstr "남은 초안 없음 · {resetDate}에 재설정"
 
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:476
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:471
 #: ../ui/src/emails/SuggestedDraftCard.tsx:113
 #, fuzzy
 msgid "No drafts remaining this month"
@@ -5679,14 +5679,14 @@ msgstr "열린 대화: {subject}"
 msgid "Open in Aziru"
 msgstr "Aziru에서 열기"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:396
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:392
 #: ../../apps/mobile/src/components/DraftSheet.tsx:97
 #: ../ui/src/emails/providerLabels.ts:11
 #, fuzzy
 msgid "Open in Gmail"
 msgstr "Gmail에서 열기"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:394
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:390
 #: ../ui/src/emails/providerLabels.ts:11
 msgid "Open in Outlook"
 msgstr "Outlook에서 열기"
@@ -6507,11 +6507,11 @@ msgstr "{0} 제거"
 msgid "Remove {email} from blacklist"
 msgstr "{email}을(를) 블랙리스트에서 제거"
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:365
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:361
 #: ../../apps/mobile/app/(app)/thread/[threadId].tsx:243
 #: ../../apps/mobile/src/components/ThreadRow.tsx:57
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:401
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:407
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:396
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:402
 #: ../ui/src/emails/ThreadPreview.tsx:128
 #: ../ui/src/emails/ThreadPreview.tsx:132
 #: ../ui/src/emails/ThreadRow.tsx:159
@@ -6699,9 +6699,9 @@ msgid "Resources"
 msgstr "자료"
 
 #: ../../apps/extension/src/App.tsx:144
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:490
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:486
 #: ../../apps/mobile/app/(app)/(tabs)/plan/index.tsx:345
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:510
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:505
 #: ../panel/src/DraftSection.tsx:259
 #: ../ui/src/emails/ThreadCommentsCard.tsx:169
 #: ../ui/src/emails/ThreadSummaryCard.tsx:60
@@ -7051,7 +7051,7 @@ msgstr "새 비밀번호 설정"
 #~ msgstr "분류를 시작할 수 있도록 최소 3개 이상의 폴더를 설정하세요."
 
 #: ../../apps/extension/src/panel/StatusSlot.tsx:59
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:438
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:434
 #: ../ui/src/plan-setup/PlanSetupDialog.tsx:384
 #, fuzzy
 msgid "Set up folders"
@@ -7982,7 +7982,7 @@ msgstr "Gmail 연결이 제거되고, 동기화된 모든 이메일이 삭제되
 msgid "This thread has reached its comment limit."
 msgstr "이 스레드는 댓글 한도에 도달했습니다."
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:443
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:439
 msgid "This thread hasn't been sorted yet."
 msgstr "이 스레드는 아직 정리되지 않았습니다."
 
@@ -7990,7 +7990,7 @@ msgstr "이 스레드는 아직 정리되지 않았습니다."
 #~ msgid "This thread hasn't been sorted yet. Create a sorting plan so Aziru knows where to file it."
 #~ msgstr "이 스레드는 아직 분류되지 않았습니다. Aziru가 어디에 분류해야 할지 알 수 있도록 분류 계획을 만드세요."
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:432
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:428
 msgid "This thread hasn't been sorted yet. Set up your folders so Aziru knows where to file it."
 msgstr "이 스레드는 아직 분류되지 않았습니다. Aziru가 어디로 분류해야 할지 알 수 있도록 폴더를 설정하세요."
 
@@ -8862,9 +8862,9 @@ msgstr "정렬된 폴더를 Outlook 카테고리로 연동"
 msgid "Writeback is on. Your folders are being mirrored into your mailbox."
 msgstr "연동 활성화됨. 폴더가 사서함에 미러링되고 있습니다."
 
-#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:482
+#: ../../apps/extension/src/panel/ThreadPreviewPane.tsx:478
 #: ../../apps/mobile/app/(app)/thread/[threadId].tsx:168
-#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:498
+#: ../../apps/web/src/app/(app)/emails/ThreadPreview.tsx:493
 #: ../panel/src/DraftSection.tsx:249
 #: ../ui/src/emails/ThreadPreview.tsx:283
 #, fuzzy
