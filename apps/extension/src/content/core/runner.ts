@@ -4,6 +4,7 @@ import {
   mountSummaryWidget,
   removeExistingWidgets,
   type MountOptions,
+  type WidgetState,
   type SummaryWidget,
   type WidgetComments,
 } from "./summaryWidget.js";
@@ -112,8 +113,7 @@ export function runContentScript(adapter: ProviderAdapter): ContentScriptControl
     }
     const token = ++requestToken;
 
-    const anchor = adapter.findInjectionAnchor();
-    if (!anchor) {
+    if (!adapter.findInjectionAnchor()) {
       debugLog("no injection anchor yet (message list not rendered)");
       return false;
     }
@@ -125,12 +125,13 @@ export function runContentScript(adapter: ProviderAdapter): ContentScriptControl
         : {}),
     };
 
+    // Nothing is mounted until the server answers. Eligibility (automated,
+    // excluded by the visibility gate, not synced) is only known server-side,
+    // and a skeleton that then vanishes reads as a glitch on every thread that
+    // gets no card. Gmail/OWA already show the thread underneath, so waiting
+    // costs little on the threads that do get one.
     widget?.remove();
-    widget = mountSummaryWidget(anchor, { kind: "loading" }, mountOpts);
-    if (!widget) {
-      debugLog("anchor detached before mount");
-      return false;
-    }
+    widget = null;
     debugLog(
       `requesting summary — account=${context.accountEmail} thread=${context.providerThreadId}`,
     );
@@ -148,6 +149,20 @@ export function runContentScript(adapter: ProviderAdapter): ContentScriptControl
       return comments && (adapter.isCommentsTargetLive?.() ?? false) ? comments : null;
     }
 
+    // First real content mounts the card; later content re-renders it in place.
+    function show(state: WidgetState): void {
+      if (widget) {
+        widget.update(state);
+        return;
+      }
+      const liveAnchor = adapter.findInjectionAnchor();
+      if (!liveAnchor) {
+        debugLog("anchor gone before mount");
+        return;
+      }
+      widget = mountSummaryWidget(liveAnchor, state, mountOpts);
+    }
+
     function apply(): void {
       if (token !== requestToken || !summaryResolved) return;
       const c = currentComments();
@@ -157,18 +172,7 @@ export function runContentScript(adapter: ProviderAdapter): ContentScriptControl
         // comments strip — removed (not torn down: the token stays valid so a
         // count that arrives later can still mount the strip) otherwise.
         if (c && c.total > 0) {
-          if (widget) {
-            widget.update({ kind: "commentsOnly", comments: c });
-          } else {
-            const stripAnchor = adapter.findInjectionAnchor();
-            if (stripAnchor) {
-              widget = mountSummaryWidget(
-                stripAnchor,
-                { kind: "commentsOnly", comments: c },
-                mountOpts,
-              );
-            }
-          }
+          show({ kind: "commentsOnly", comments: c });
         } else if (widget) {
           widget.remove();
           widget = null;
@@ -176,14 +180,14 @@ export function runContentScript(adapter: ProviderAdapter): ContentScriptControl
         return;
       }
       if (outcome.kind === "quota") {
-        widget?.update({ kind: "quota", resetsAt: outcome.resetsAt });
+        show({ kind: "quota", resetsAt: outcome.resetsAt });
         return;
       }
       if (outcome.kind === "bullets") {
-        widget?.update({ kind: "bullets", bullets: outcome.bullets, ...(c ? { comments: c } : {}) });
+        show({ kind: "bullets", bullets: outcome.bullets, ...(c ? { comments: c } : {}) });
         return;
       }
-      widget?.update({ kind: "summary", text: outcome.text, ...(c ? { comments: c } : {}) });
+      show({ kind: "summary", text: outcome.text, ...(c ? { comments: c } : {}) });
     }
 
     const message: ThreadSummaryRequest = {
@@ -215,7 +219,7 @@ export function runContentScript(adapter: ProviderAdapter): ContentScriptControl
       .catch((e) => {
         if (token !== requestToken) return;
         debugLog("sendMessage failed:", e);
-        widget?.update({
+        show({
           kind: "error",
           onRetry: () => {
             requestSummary(context, true);

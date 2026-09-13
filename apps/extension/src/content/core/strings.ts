@@ -11,7 +11,6 @@
 // only the active locale's catalog at runtime.
 export const STRINGS = {
   eyebrow: "Summary",
-  loading: "Summarizing…",
   error: "Could not summarize this thread.",
   retry: "Retry",
   quota: (resetsAt: string) => `No summaries remaining this month · resets ${resetsAt}`,

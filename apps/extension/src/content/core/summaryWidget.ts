@@ -16,7 +16,6 @@ import { createLogoMark } from "./logoMark.js";
 export type WidgetComments = { total: number; unread: number };
 
 export type WidgetState =
-  | { kind: "loading" }
   | { kind: "summary"; text: string; comments?: WidgetComments }
   | { kind: "bullets"; bullets: string[]; comments?: WidgetComments }
   /** A thread with team discussion but no summary card (single-message threads
@@ -133,14 +132,6 @@ const STYLES = `
 .bullets li + li { margin-top: 1px; }
 .bullets li::marker { color: var(--am-muted); }
 .muted { color: var(--am-muted); }
-.pulse {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--am-accent);
-  animation: aziru-pulse 1.6s ease-in-out infinite;
-  flex: 0 0 auto;
-  align-self: center;
-}
-@keyframes aziru-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 .retry {
   font: inherit;
   font-size: 12px;
@@ -182,9 +173,6 @@ const STYLES = `
 .comments:focus-visible { outline: 2px solid var(--am-accent); outline-offset: 1px; }
 /* Unread activity is the one accent moment; a read bubble stays muted. */
 .comments.unread { color: var(--am-accent-ink); font-weight: 600; }
-@media (prefers-reduced-motion: reduce) {
-  .pulse { animation: none; }
-}
 `;
 
 /**
@@ -223,8 +211,8 @@ function parseColor(value: string): { r: number; g: number; b: number; a: number
 }
 
 /**
- * A mounted widget. `update` re-renders in place (no flicker on loading →
- * summary); `remove` tears the host element out of the page.
+ * A mounted widget. `update` re-renders in place (no flicker when a late
+ * comment count decorates the card); `remove` tears the host element out of the page.
  */
 export interface SummaryWidget {
   readonly host: HTMLElement;
@@ -355,21 +343,9 @@ function render(
   // attribution a sighted user reads from the terracotta chrome.
   card.setAttribute("role", "note");
   card.setAttribute("aria-label", "Aziru thread summary");
-  // The card is replaced in place as the request resolves; polite live region so
-  // the arriving summary is announced instead of silently swapping under focus.
+  // The card is re-rendered in place when a late comment count lands; polite live
+  // region so the change is announced instead of silently swapping under focus.
   card.setAttribute("aria-live", "polite");
-
-  if (state.kind === "loading") {
-    card.className = `${base} row`;
-    const pulse = document.createElement("span");
-    pulse.className = "pulse";
-    const label = document.createElement("span");
-    label.className = "muted";
-    label.textContent = STRINGS.loading;
-    card.append(pulse, label);
-    root.append(card);
-    return;
-  }
 
   if (state.kind === "error") {
     card.className = `${base} row`;

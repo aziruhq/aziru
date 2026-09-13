@@ -15,10 +15,13 @@ function shadowText(host: HTMLElement): string {
   return host.shadowRoot?.textContent ?? "";
 }
 
+/** Any renderable state, for tests about mounting mechanics rather than content. */
+const ANY_STATE = { kind: "summary", text: "hi" } as const;
+
 describe("mountSummaryWidget", () => {
   it("mounts a shadow root immediately before the anchor", () => {
     const anchor = anchorInPage();
-    const widget = mountSummaryWidget(anchor, { kind: "loading" })!;
+    const widget = mountSummaryWidget(anchor, ANY_STATE)!;
     expect(widget.host.shadowRoot).not.toBeNull();
     expect(widget.host.nextElementSibling).toBe(anchor);
     expect(document.getElementById("pane")!.firstElementChild).toBe(widget.host);
@@ -26,22 +29,17 @@ describe("mountSummaryWidget", () => {
 
   it("returns null when the anchor is detached from the document", () => {
     const orphan = document.createElement("div");
-    expect(mountSummaryWidget(orphan, { kind: "loading" })).toBeNull();
+    expect(mountSummaryWidget(orphan, ANY_STATE)).toBeNull();
   });
 
-  it("renders the loading state", () => {
-    const widget = mountSummaryWidget(anchorInPage(), { kind: "loading" })!;
-    expect(shadowText(widget.host)).toContain(STRINGS.loading);
-  });
-
-  it("transitions loading → summary in place, without remounting", () => {
+  it("re-renders in place on update, without remounting", () => {
     const anchor = anchorInPage();
-    const widget = mountSummaryWidget(anchor, { kind: "loading" })!;
+    const widget = mountSummaryWidget(anchor, { kind: "summary", text: "First." })!;
     const hostBefore = widget.host;
     widget.update({ kind: "summary", text: "Ana needs the kickoff date." });
     expect(widget.host).toBe(hostBefore);
     expect(shadowText(widget.host)).toContain("Ana needs the kickoff date.");
-    expect(shadowText(widget.host)).not.toContain(STRINGS.loading);
+    expect(shadowText(widget.host)).not.toContain("First.");
   });
 
   it("renders summary text as text, never as markup", () => {
@@ -55,7 +53,7 @@ describe("mountSummaryWidget", () => {
 
   it("fires onRetry from the error state", () => {
     const onRetry = vi.fn();
-    const widget = mountSummaryWidget(anchorInPage(), { kind: "loading" })!;
+    const widget = mountSummaryWidget(anchorInPage(), ANY_STATE)!;
     widget.update({ kind: "error", onRetry });
     const button = widget.host.shadowRoot!.querySelector("button")!;
     button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
@@ -71,7 +69,7 @@ describe("mountSummaryWidget", () => {
   });
 
   it("keeps exactly one style block across re-renders", () => {
-    const widget = mountSummaryWidget(anchorInPage(), { kind: "loading" })!;
+    const widget = mountSummaryWidget(anchorInPage(), ANY_STATE)!;
     widget.update({ kind: "summary", text: "One." });
     widget.update({ kind: "summary", text: "Two." });
     expect(widget.host.shadowRoot!.querySelectorAll("style")).toHaveLength(1);
@@ -79,7 +77,7 @@ describe("mountSummaryWidget", () => {
 
   it("removes itself from the page on teardown", () => {
     const anchor = anchorInPage();
-    const widget = mountSummaryWidget(anchor, { kind: "loading" })!;
+    const widget = mountSummaryWidget(anchor, ANY_STATE)!;
     widget.remove();
     expect(document.body.contains(widget.host)).toBe(false);
     expect(document.getElementById("pane")!.firstElementChild).toBe(anchor);
@@ -89,8 +87,8 @@ describe("mountSummaryWidget", () => {
 describe("removeExistingWidgets", () => {
   it("clears widgets left over from a previous document state", () => {
     const anchor = anchorInPage();
-    mountSummaryWidget(anchor, { kind: "loading" });
-    mountSummaryWidget(anchor, { kind: "loading" });
+    mountSummaryWidget(anchor, ANY_STATE);
+    mountSummaryWidget(anchor, ANY_STATE);
     expect(document.querySelectorAll("[data-aziru-summary]")).toHaveLength(2);
     removeExistingWidgets();
     expect(document.querySelectorAll("[data-aziru-summary]")).toHaveLength(0);
@@ -120,7 +118,7 @@ describe("host-theme adaptation", () => {
 
   it("keeps the palette stable across re-renders", () => {
     document.body.innerHTML = `<div id="pane" style="background-color: rgb(24, 22, 19)"><div id="msgs"></div></div>`;
-    const widget = mountSummaryWidget(document.getElementById("msgs")!, { kind: "loading" })!;
+    const widget = mountSummaryWidget(document.getElementById("msgs")!, ANY_STATE)!;
     widget.update({ kind: "summary", text: "done" });
     expect(widget.host.shadowRoot!.querySelector(".card")!.classList.contains("dark")).toBe(true);
   });
@@ -190,7 +188,6 @@ describe("card structure and accessibility", () => {
 
   it("keeps the transient states on one row", () => {
     for (const state of [
-      { kind: "loading" } as const,
       { kind: "quota", resetsAt: "2026-08-01T00:00:00.000Z" } as const,
       { kind: "error", onRetry: () => {} } as const,
     ]) {
@@ -237,7 +234,7 @@ describe("card structure and accessibility", () => {
   });
 
   it("keeps the note semantics across every state", () => {
-    const widget = mountSummaryWidget(anchorInPage(), { kind: "loading" })!;
+    const widget = mountSummaryWidget(anchorInPage(), ANY_STATE)!;
     widget.update({ kind: "bullets", bullets: ["a", "b"] });
     const card = widget.host.shadowRoot!.querySelector(".card")!;
     expect(card.getAttribute("role")).toBe("note");
