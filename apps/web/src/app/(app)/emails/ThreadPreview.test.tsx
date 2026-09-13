@@ -326,14 +326,16 @@ describe("ThreadPreview thread summary", () => {
     expect(api.threadSummary).toHaveBeenCalledWith(WS, "t-1", {});
   });
 
-  it("shows the list snippet for a single-message thread without any summary request", async () => {
+  it("requests a summary for a single-message thread and renders a server-chosen snippet", async () => {
     vi.mocked(api.emailThread).mockResolvedValue(detail(["m-1"], "Filed under Work."));
+    // The server, not the client, decides when a snippet is enough.
+    vi.mocked(api.threadSummary).mockResolvedValue({ kind: "snippet", snippet: "Let's get started" });
 
     renderPreview(threadV1());
 
     expect(await screen.findByText("Preview")).toBeInTheDocument();
     expect(screen.getByText("Let's get started")).toBeInTheDocument();
-    expect(api.threadSummary).not.toHaveBeenCalled();
+    expect(api.threadSummary).toHaveBeenCalledWith(WS, "t-1", {});
   });
 
   it("renders the quota line instead of a summary when the monthly cap is reached", async () => {
@@ -363,9 +365,9 @@ describe("ThreadPreview thread summary", () => {
     vi.mocked(api.emailThread).mockResolvedValue(detail(["m-1", "m-2"], "Filed under Work."));
 
     const { rerender } = renderPreview(threadV1());
-    // threadV1 is single-message: no request at all.
+    // Single-message threads are summarized too: one request on open.
     await waitFor(() => expect(api.emailThread).toHaveBeenCalledTimes(1));
-    expect(api.threadSummary).not.toHaveBeenCalled();
+    await waitFor(() => expect(api.threadSummary).toHaveBeenCalledTimes(1));
 
     rerender(
       <ThreadPreview
@@ -390,7 +392,7 @@ describe("ThreadPreview thread summary", () => {
 
     // The server compares message-set signatures and regenerates; the client only
     // has to ask again.
-    await waitFor(() => expect(api.threadSummary).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(api.threadSummary).toHaveBeenCalledTimes(2));
   });
 });
 
