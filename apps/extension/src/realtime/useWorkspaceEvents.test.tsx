@@ -10,7 +10,7 @@ import { resetChromeStorage } from "../test-setup";
 // the race where a hidden->visible flip starts a second connect while the first
 // is suspended, leaving two live SSE streams and firing onSynced twice.
 
-const TOKEN_KEY = "amarnai.auth.tokens";
+const TOKEN_KEY = "aziru.auth.tokens";
 const ENCODER = new TextEncoder();
 
 type FetchCall = {

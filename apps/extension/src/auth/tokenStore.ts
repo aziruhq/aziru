@@ -3,7 +3,7 @@ import { ext } from "../platform/ext";
 
 export type { StoredTokens, TokenStore };
 
-const KEY = "amarnai.auth.tokens";
+const KEY = "aziru.auth.tokens";
 
 // Tokens live in storage.local — scoped to the extension, persists across
 // panel open/close and service-worker death (the panel is destroyed when closed,

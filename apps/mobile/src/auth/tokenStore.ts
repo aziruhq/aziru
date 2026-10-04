@@ -16,7 +16,7 @@ export interface TokenStore {
   clear(): Promise<void>;
 }
 
-const KEY = 'amarnai.auth.tokens';
+const KEY = 'aziru.auth.tokens';
 
 // expo-secure-store keeps the value in the device keychain/keystore, encrypted
 // at rest. We store the whole pair under one key as JSON.

@@ -19,7 +19,7 @@ vi.mock("./microsoftAuth", () => ({
 // unconditionally, clobbering the sign-out the transport had just triggered and
 // stranding an expired user on the "Connect Gmail" screen instead of sign-in.
 
-const TOKEN_KEY = "amarnai.auth.tokens";
+const TOKEN_KEY = "aziru.auth.tokens";
 
 // A JWT is decoded (not verified) to read `sub` as the user id. Only the payload
 // segment matters; the signature is a placeholder.

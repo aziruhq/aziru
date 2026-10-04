@@ -14,7 +14,7 @@ import type { StoredTokens, TokenStore } from "@aziru/api-client";
 // the pane's tokens are not readable by the surrounding Outlook page, and are
 // scoped to the Outlook context rather than leaking into the normal web app.
 
-const KEY = "amarnai.auth.tokens";
+const KEY = "aziru.auth.tokens";
 
 function parse(raw: string | null): StoredTokens | null {
   if (!raw) return null;

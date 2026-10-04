@@ -27,13 +27,13 @@ describe("extensionTokenStore", () => {
   });
 
   it("returns null for malformed JSON", async () => {
-    await chrome.storage.local.set({ "amarnai.auth.tokens": "{not json" });
+    await chrome.storage.local.set({ "aziru.auth.tokens": "{not json" });
     expect(await extensionTokenStore.get()).toBeNull();
   });
 
   it("returns null when required fields are missing", async () => {
     await chrome.storage.local.set({
-      "amarnai.auth.tokens": JSON.stringify({ accessToken: "a1" }),
+      "aziru.auth.tokens": JSON.stringify({ accessToken: "a1" }),
     });
     expect(await extensionTokenStore.get()).toBeNull();
   });
